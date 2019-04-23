@@ -1,0 +1,11 @@
+#jumbo {
+    background-color: rosybrown;
+    color: ghostwhite;
+    text-align: center;
+}
+
+#test {
+    background-color: rosybrown;
+    color: blue;
+    width: fit-content;
+}
