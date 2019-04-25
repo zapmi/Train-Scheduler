@@ -7,5 +7,5 @@
 #test {
     background-color: rosybrown;
     color: blue;
-    width: fit-content;
+    /* width: fit-content; */
 }

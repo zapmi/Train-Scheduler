@@ -15,73 +15,51 @@ $("#submit-bid").on("click", function (event) {
     event.preventDefault();
     var trainName = $("#inputName").val().trim();
     var dest = $("#inputDest").val().trim();
-    var arrivalTime = $("#inputTime").val().trim();
-    // var minsAway = $("inputWork").val().trim();;
+    var firstTrainInput = $("#inputTime").val().trim();
     var freq = $("#inputFreq").val().trim();
-    // var totalBill = $("#inputBill").val().trim();
-    console.log("test");
-    console.log(trainName);
-    console.log(dest);
-    console.log(arrivalTime);
-    console.log(freq);
 
+    console.log(firstTrainInput);
 
-    var employeeObj = {
+    var trainObj = {
         trainname: trainName,
         destination: dest,
-        arrivalTime: arrivalTime,
-        // minutesaway: minsAway,
+        traintime: firstTrainInput,
         frequency: freq,
-        // billed: totalBill
+
     }
-    database.ref().push(employeeObj);
+    database.ref().push(trainObj);
+
+    $("#inputName").val("");
+    $("#inputDest").val("");
+    $("#inputTime").val("");
+    $("#inputFreq").val("");
 
 
 });
 
 database.ref().on("child_added", function (child) {
-    console.log(child.val());
     var trainName = child.val().trainname;
     var dest = child.val().destination;
-    var arrivalTime = child.val().arrivalTime;
+    var firstTrainTime = moment(child.val().traintime, "HH:mm").subtract(1, "years");
+    console.log(firstTrainTime);
     var freq = child.val().frequency;
-    var currTime = moment(arrivalTime, 'hh:mm');
-    var minsAway = currTime.diff(arrivalTime, 'arrivalTime')
-    // var totalBill = minsAway * freq;
-    // var duration = moment.duration(endTime.diff(startTime));
-    // endTime.diff(startTime, 'hours')
-//**************************************** 
 
-// frequency = freq
-//next Arrival = nextArrival arrivalTime
-//current arrivalTime = current arrivalTime
-//minuets away = (current arrivalTime - nextArrival arrivalTime) - freq
+    var diffTime = moment().diff(moment(firstTrainTime), "minutes");
+    console.log(diffTime);
+    var tRemainder = diffTime % freq;
+    var minsAway = freq - tRemainder;
+    var nextTrainArrival = moment().add(minsAway, "minutes").format("HH:mm");
 
 
-
-
-
-
-/**************************************** */
-
-
-
-    //add row to body
-
-    var today = moment().format('HH:mm');
     var trainname = $("<td>").text(trainName);
     var destination = $("<td>").text(dest);
     var frequency = $("<td>").text(freq);
-    var arrivalTime = $("<td>").text(arrivalTime);
+    var arrivalTime = $("<td>").text(nextTrainArrival);
     var minutesaway = $("<td>").text(minsAway);
-    
-    // var billed = $("<td>").text(totalBill);
-
     var tRow = $("<tr>");
+    var tBody = $("tbody");
+
+    tBody.append(tRow);
     tRow.append(trainname, destination, frequency, arrivalTime, minutesaway);
 
-    var tBody = $("tbody");
-    tBody.append(tRow);
-
-    console.log(today);
 });
