@@ -6,18 +6,20 @@
 
 #jumbo {
     background-color: rosybrown;
-    color: ghostwhite;
-    /* font-family: ToyTrain; */
+    color: black;
     text-align: center;
 }
+
 h1 {
     font-family: ToyTrain;
 }
 
-#test {
+#tables {
     background-color: rosybrown;
-    color: blue;
-    border-color: blue;
+    color: ghostwhite;
+    padding: 10px;
+}
     
-    /* width: fit-content; */
+#submit-bid {
+    background-color: black;
 }
