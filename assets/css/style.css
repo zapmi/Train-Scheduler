@@ -4,10 +4,6 @@
     url("../fonts/toyTrain.ttf") format('truetype');  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
-body {
-    background-color: red;
-}
-
 #jumbo {
     background-color: rosybrown;
     color: black;
